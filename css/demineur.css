@@ -1,0 +1,50 @@
+
+body {
+    font-family: 'Press Start 2P', cursive;
+}
+
+button {
+    font-family: 'Press Start 2P', cursive;
+}
+.DivDemineur{
+    display: flex;
+    border: solid;
+}
+
+.Row_Demineur {
+    /* background-color: black; */
+    display: flex;
+    padding: 0px;
+    width: auto;
+    flex-flow: row nowrap;
+    justify-content: center;
+}
+.Case_demineur_init{
+    background-color: silver;
+    border: solid;
+    margin: 0px;
+    min-width: 50px;
+    min-height: 50px;
+    max-width: 100px;
+    max-height: 100px;
+}
+
+.textSize2em {
+    font-size: 2em;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.display_off {
+    display: none !important;
+}
+
+.flex_center {
+    display: flex;
+    /* height: 100%;
+    width: 100%; */
+    justify-content: center;
+    align-items: center;
+}

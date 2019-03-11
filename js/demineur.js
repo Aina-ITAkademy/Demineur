@@ -1,22 +1,53 @@
 var nbMine
 var dmineLenghtX
 var dmineLenghtY
-var tabDem = []
+var tabDem
 var setBomb = new Set([])
-// Case id : cX.Y
-// Row id : rX
-// Icone Bomb id : bX.Y
-// text des bombs id : bTxtX.Y
+
+// Format des id :
+//      - Case id : cX.Y
+//      - Row id : rX
+//      - Icone Bomb id : bX.Y
+//      - text des bombs id : tX.Y
 
 
 // init_debug
 
+///////////////
+// 1)   Creer l'affichage de base
+// 2)   Generer les mines
+// 3.a) Remplir le tableau a 2 dimensions tabDem avec des chiffres
+//          1-8 : nombre de mines voisins
+//          0   : aucune mines
+//          -1  : mine
+// 3.b) Remplacer dans l'affichage les "0" par les nombres selon 3.a)
+
 function init_debug() {
+    // Parametre debug
     nbMine = 10
-    dmineLenghtX = 20
-    dmineLenghtY = 20
+    dmineLenghtX = 10
+    dmineLenghtY = 15
+    tabDem = new Array(dmineLenghtY);
+    for (var i = 0; i < dmineLenghtY; i++) {
+        tabDem[i] = new Array(dmineLenghtX);
+    }
 
     var MainDiv = document.getElementById("DivGame")
+
+    ///////////////////////////////
+    // 1) Affichage avec des Div //
+    ///////////////////////////////
+
+    // Toutes les cases en div "SousDiv" auront une paire de div :
+    //      - numberDiv avec du text, initialement "0"
+    //      - bombDiv avec icone de bomb
+    // Les 2 divs sont cachees par la class display_off
+    // Chacunes des SousDiv seront dans un div "DivRow" pour chaque ligne
+    // Chaque Ligne de "DivRow" seront dans la div "DivDemineur"
+    //
+    // DivDemineur(DivRow(SousDiv(numberDiv,bombDiv)))
+
+
     //Creer la div du jeu
     var DivDemineur = document.createElement("div")
     DivDemineur.id = "DivDemineur"
@@ -27,6 +58,7 @@ function init_debug() {
         DivRow.classList.add("Row_Demineur")
         for (var y = 0; y < dmineLenghtY; y++) {
 
+            
             //Case cote HTML en Div
             var SousDiv = document.createElement("div")
             var xSTR = x.toString()
@@ -45,33 +77,44 @@ function init_debug() {
             SousDiv.classList.add('flex_center')
             SousDiv.appendChild(bombDiv)
 
-            // Div avec le text du nombre de Bomb a ajouter
+            // Div avec le text du nombre de Bomb a ajouter (initialise à 0)
             var numberDiv = document.createElement('div')
             numberDiv.classList.add('display_off')
             numberDiv.classList.add('textSize2em')
-            numberDiv.id = "bTxt" + xSTR +'.'+ ySTR
+            numberDiv.id = "t" + xSTR +'.'+ ySTR
             numberDiv.innerHTML= "0" // tout initialiser a 0
             SousDiv.appendChild(numberDiv)
-            //Case cote js dans tabDem[][]
-
-            ///
-            ///
-            ///
-
 
         }
         DivDemineur.appendChild(DivRow)
     }
 
+    //////////////////////////
+    // 2) Generer les mines //
+    //////////////////////////
+
     //Tableau avec les mines
     MainDiv.appendChild(DivDemineur)
     init_mine(nbMine)
 
+    //////////////////////////////////////
+    // 3.a) Remplir le tableau tabDem   //
+    //////////////////////////////////////
+
+    //Remplir le tableau de 0
+    //
+    //
+    for (var y=0; y < dmineLenghtY;y++) {
+        for (var x=0; x < dmineLenghtX;x++) {
+            tabDem[y][x] = 0
+        }
+    }
+
     //Remplir le tableau en fonction des voisins
-    setBomb.forEach(init_number)
+    setBomb.forEach(init_number) //Pas fini
 }
 
-//Initialiser les mines
+//Fonction pour initialiser les miens dans setBomb
 function init_mine(n_mine) {
     debug_cpt = 0
     while (setBomb.size < n_mine) {
@@ -104,12 +147,8 @@ function init_number(s) {
             caseID = c + (caseIDX.toString()) + (caseIDY.toString())
             var lacase = document.getElementById(s)
 
-            //Viser la bonne case, bTxt0.0
+           
         }
-        // Case de gauche
-
-        // Case de Droite
-        // Ligne du bas
     }
 }
 
